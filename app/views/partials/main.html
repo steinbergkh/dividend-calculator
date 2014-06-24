@@ -1,0 +1,74 @@
+<!-- <div ng-include="'partials/navbar'"></div>-->
+<h3>Dividend Calculator</h3>
+<div class="row">
+    <div class="col-xs-3">
+
+
+        <!-- INVESTMENT INFO -->
+        <h4>Initial Investment</h4>
+        $<input type='text' class="currency" ng-model='settings.initialInvestment' field='settings.initialInvestment' currency-input />
+
+        <h4>Years to Invest</h4>
+        <p><input style="width:40px; text-align:right;" type='text' ng-model='settings.yearsInvest'/> years </p>
+        <h4>Years to Reinvest</h4>
+        <p><input style="width:40px; text-align:right;" type='text' ng-model='settings.yearsReinvest'/> years </p>
+        <!-- END INVESTMENT INFO -->
+
+
+        <!-- DIVIDEND INFO -->
+        <h4>Initial Dividend</h4>
+        $<input type='text' class="currency" ng-model='settings.initialDividendPayment' field='settings.initialDividendPayment' currency-input />
+
+        <h4>Dividend Growth per Year</h4>
+        <input class="percentage" type="percent" ng-model="settings.dividendGrowthPerYear" percent>%
+        <!-- END DIVIDEND INFO -->
+
+
+        <!-- STOCK INFO -->
+        <h4>Initial Stock Price</h4>
+        $<input type='text' class="currency" ng-model='settings.initialStockPrice' field='settings.initialStockPrice' currency-input />
+
+        <h4>Stock Growth per Year</h4>
+        <input class="percentage" type="percent" ng-model="settings.stockPriceGrowthPerYear" percent>%
+        <!-- END STOCK INFO -->
+
+        <hr>
+        <h4>Reinvestments</h4>
+        <ul class="unstyled">
+            <li ng-repeat="reinvestment in reinvestmentList | filter:reinvestFilter">
+                Year {{reinvestment.year + 1}} - {{reinvestment.amount | currency}} <span class="glyphicon glyphicon-remove" ng-click="reinvest(reinvestment.year + 1, 0)"></span>
+            </li>
+        </ul>
+        <div class="reinvestment-input" style="background-color: rgba(52, 55, 57, 0.45); width: auto; padding: 10px;">
+            <form ng-submit="reinvest(reinvestmentYear, reinvestmentAmount)">
+                <input type="text" ng-model="reinvestmentYear"  size="3"
+                       placeholder="year">
+                <input type="text" ng-model="reinvestmentAmount"  size="15"
+                       placeholder="amount">
+                <input class="btn-primary" type="submit" value="add">
+            </form>
+        </div>
+
+
+    </div>
+    <div class="col-xs-2">
+        <div ng-repeat="investment in investmentList">
+            Year {{investment.getYear() + 1}} - {{investment.getBeginningTotal() | currency}}
+        </div>
+    </div>
+    <div class="col-xs-7">
+        <nvd3-line-chart
+                data="exampleData"
+                id="isAreaDataExample"
+                width="550"
+                height="300"
+                x="xAttributeFunction()"
+                y="yAttributeFunction()"
+                yAxisTickFormat="yAxisTickFormatFunction()"
+                showXAxis="true"
+                showYAxis="true"
+                >
+            <svg></svg>
+        </nvd3-line-chart>
+    </div>
+</div>
