@@ -8,6 +8,7 @@ angular.module('dividendCalculatorApp').factory('InvestYear', function () {
         var beginningNumShares = beginNumShares;
         var dividendIncome = beginningNumShares*dividendPerShare;
         var reinvestment = reinvestAmount;
+        var endingTotal = beginningTotal;
 
 
 
@@ -15,17 +16,24 @@ angular.module('dividendCalculatorApp').factory('InvestYear', function () {
 
         var getRepurchased = function(sharePrice){
 
-           //console.log('reinvestment = '+reinvestment);
+           console.log('share price = '+sharePrice);
             var amountReinvested = (reinvestment+dividendIncome);
-            //console.log('reinvestment + dividendIncome = ' +amountReinvested);
-
+            console.log('reinvestment + dividendIncome = ' +amountReinvested);
+            console.log('repurchased shares = ' + amountReinvested/sharePrice);
             return ((amountReinvested)/sharePrice);
         };
 
         return {
             getSharesRepurchased: getRepurchased,
             getEndingTotal: function (sharePrice) {
-                //console.log('Using dividend income of $'+dividendIncome +' & reinvestment of $'+reinvestment+' to repurchase '+getRepurchased(sharePrice)+ ' shares at $'+sharePrice+' per share');
+                if (endingTotal != beginningTotal){
+                    return endingTotal;
+                }
+                //console.log('getting ending total');
+                var amountRepurchased = getRepurchased(sharePrice);
+                var endingNumShares = beginningNumShares + amountRepurchased;
+                console.log('bought back '+amountRepurchased+' shares for a total of '+endingNumShares);
+                endingTotal = (beginningNumShares + getRepurchased(sharePrice))*sharePrice;
                 return( (beginningNumShares + getRepurchased(sharePrice))*sharePrice);
             },
             getBeginningTotal: function () {

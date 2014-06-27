@@ -10,7 +10,7 @@ angular.module('dividendCalculatorApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',
-        controller: 'DividendCalculatorController'
+        controller: 'DividendCalculatorCtrl'
       })
       .otherwise({
         redirectTo: '/'
