@@ -83,8 +83,8 @@ angular.module('dividendCalculatorApp')
         $scope.$watchCollection('settings', setInitialVals);
         $scope.$watchCollection('reinvestmentList', setInitialVals);
 
-        $scope.stockPrice = calcStockPrice;
-        $scope.dividend = calcDividend;
+        $scope.getStockPrice = calcStockPrice;
+        $scope.getDividend = calcDividend;
 
         $scope.reinvest = function(year, reinvestAmount) {
             reinvestAmount = typeof reinvestAmount !== 'undefined' ? reinvestAmount : 0;

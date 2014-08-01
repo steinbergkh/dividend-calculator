@@ -2,11 +2,11 @@
 
 angular.module('dividendCalculatorApp').factory('InvestGraph', function () {
     // Define the constructor function.
-    return function( curYear , curTotalInvestment) {
+    return function( curYear , curVal) {
         var x = curYear;
-        var y = curTotalInvestment;
+        var y = curVal;
         return {
-            x: x,
+            x: x.toString(),
             y: y
         };
 
